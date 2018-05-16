@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+        <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>  
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" /> 
+        <meta name="format-detection" content="email=no" />
+        <meta name="keywords" content="" /> 
+        <meta name="description" content="" />
+        <title>Title</title>
+        
+    </head>
+
+    <body>
+
+        <main>
+            <span style="font-size:1rem;">MoreFun H5 SDK Demo</span><br/>
+            <button id= "login" onclick="call_login()" style="margin-left: 40px;margin-top: 20px;height: 40px;width: 150px;">Login</button><br/>
+            <button id= "pay" onclick="call_pay()" style="margin-left: 40px;margin-top: 20px;height: 40px;width: 150px;">Pay</button><br/>
+            <button id= "logout" onclick="call_logout()"style="margin-left: 40px;margin-top: 20px;height: 40px;width: 150px;">Logout</button><br/>
+        </main>
+
+        <script>
+        	//签名函数
+			function Sign(obj,appkey){
+				var str = "";
+				var newkey = Object.keys(obj).sort();
+	 			for (var i = 0; i < newkey.length; i++) {
+        			str += obj[newkey[i]];
+    			}
+				return md5(str+""+appkey);
+			}
+		
+            (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "./sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'morefun-jssdk'));
+			
+            window.morefunAsyncInit = function() {
+                MoreFun.init({
+                    app_id: 'qX1vElTTijhj',
+                    app_key: 'eYXMHOivchDAL3WgvEr0KiOmubGDsyzZ',
+                    game_version: '1.0.0',
+                    is_debug: true
+                });
+            };
+            function call_login(){
+          		MoreFun.login(function(msg){
+          			console.log(JSON.stringify(msg));
+            		o_signature	= msg.signature;
+            		delete msg.signature;
+					scp_sign= Sign(msg,"eYXMHOivchDAL3WgvEr0KiOmubGDsyzZ");
+					if(scp_sign == o_signature)
+					{
+						console.log("onLogin success!")
+					}else{
+						console.log("signature failed!")
+					}
+            	});
+            }
+            function call_pay(){
+            	MoreFun.pay("com.mf.test2.diamond1","MB","1","2.0","test",
+            	function(){
+                    console.log("onPaySuccess!")
+                });
+            }
+            function call_logout(){
+             	MoreFun.logout(function(){
+                    console.log("onLogout!")
+                });
+             }
+        </script>
+    </body>
+</html>
