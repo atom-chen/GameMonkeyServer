@@ -56,6 +56,8 @@
     "crc-32": "^1.0.2",
     "crc32": "^0.2.2",
     "crypto": "0.0.3",
+    "db-migrate": "^0.11.1",
+    "db-migrate-mysql": "^1.1.10",
     "dottie": "^2.0.0",
     "double-ended-queue": "^2.1.0-0",
     "encodeurl": "^1.0.1",
