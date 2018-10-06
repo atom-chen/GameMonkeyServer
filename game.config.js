@@ -12,8 +12,8 @@ module.exports = {
                 "PoolMax": 500,             //最大数据库并发连接
                 "game_secret": "055c269fb1a866163c970d5b7f979f1c",
                 "game_name": "鸡小德",
-                "clientPath": "./web/client",
-                "adminPath": "./web/admin",
+                "clientPath": "./client",
+                "adminPath": "./admin",
                 "redis": {
                     "host": "127.0.0.1",
                     "port": 6379,
@@ -23,7 +23,7 @@ module.exports = {
                     "logging" : false,
                     "db": "monkey",
                     "sa": "root",
-                    "pwd": "helloworld",
+                    "pwd": "123456",
                     "host": "127.0.0.1",
                     "port": 3306
                 },
@@ -69,7 +69,7 @@ module.exports = {
                     "logging" : false,
                     "db": "monkey",
                     "sa": "root",
-                    "pwd": "helloworld",
+                    "pwd": "123456",
                     "host": "127.0.0.1",
                     "port": 3306
                 },
@@ -86,7 +86,7 @@ module.exports = {
                     "logging" : false,
                     "db": "monkey",
                     "sa": "root",
-                    "pwd": "helloworld",
+                    "pwd": "123456",
                     "host": "127.0.0.1",
                     "port": 3306
                 },
