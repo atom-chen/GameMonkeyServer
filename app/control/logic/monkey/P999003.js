@@ -2,6 +2,16 @@ let facade = require('../../../../facade/Facade')
 let {ShopTypeEnum, PurchaseType, ResType, ActionExecuteType, ReturnCode} = facade.const
 let UserEntity = require('../../../model/entity/UserEntity')
 let shopInfo = require('../../../../facade/model/assistant/shopInfo')
+const remote = require('../../../lib/authConn');
+
+remote.setup({
+    type:   'testnet',            //远程全节点类型
+    ip:     '114.116.12.248',          //远程全节点地址
+    apiKey: 'bookmansoft',        //远程全节点基本校验密码
+    id:     'primary',            //默认访问的钱包编号
+    cid:    '26df58b0-c3f7-11e8-9b6a-535f0e95d0fa',        //终端编码，作为访问远程全节点时的终端标识
+    token:  '029edeaccf8444961f80ba61b80cf7c73beff147fb4b5166b3fb696669fdfba8d1', //访问钱包时的令牌固定量，通过HMAC算法，将令牌随机量和令牌固定量合成为最终的访问令牌
+});
 
 /**
  * 获取商品列表，细分为：元宝商城；普通商城；工会商城；荣誉商城
