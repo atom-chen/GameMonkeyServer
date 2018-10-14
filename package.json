@@ -61,6 +61,7 @@
     "db-migrate-mysql": "^1.1.10",
     "dottie": "^2.0.0",
     "double-ended-queue": "^2.1.0-0",
+    "elliptic": "^6.4.1",
     "encodeurl": "^1.0.1",
     "escape-html": "^1.0.3",
     "exit-on-epipe": "^1.0.0",

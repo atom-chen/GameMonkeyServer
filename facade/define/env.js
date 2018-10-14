@@ -11,8 +11,8 @@ const env = {
     PoolMax: 500,             //最大数据库并发连接
     game_secret: "",          //加密密钥
     game_name: "",         
-    clientPath: "./web/client",
-    adminPath: "./web/admin",
+    clientPath: "./client",
+    adminPath: "./admin",
     redis: {
         host: "127.0.0.1",
         port: 6379,

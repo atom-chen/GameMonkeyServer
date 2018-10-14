@@ -1,6 +1,7 @@
 let facade = require('../../facade/Facade')
-let {MiddlewareParam, ReturnCode, EntityType, IndexType, UserStatus, DomainType, GetDomainType} = facade.const
+let {MiddlewareParam, ReturnCode, EntityType, IndexType, UserStatus, DomainType, GetDomainType,RecordType} = facade.const
 let CommonFunc = facade.util
+let verifyData = require('../../app/lib/verifyData');
 
 /**
  * 游戏玩家认证鉴权
@@ -67,11 +68,19 @@ async function handle(sofar) {
                             }
                             sofar.msg.oemInfo.openid = sofar.msg.oemInfo.auth.plat_user_id;
                         }
+                        //let rt = verifyData(sofar.msg.token);
+                        // if(!rt){
+                        //     sofar.recy = false;
+                        //     return ;
+                        // }
                         sofar.msg.domainId = sofar.msg.oemInfo.domain + '.' + sofar.msg.oemInfo.openid;
                         break;
                     }
             }
-            sofar.msg.oemInfo.token = facade.util.sign({ did: sofar.msg.domainId }, sofar.facade.options.game_secret); //为用户生成令牌
+            //sofar.msg.oemInfo.token = facade.util.sign({ did: sofar.msg.domainId }, sofar.facade.options.game_secret); //为用户生成令牌
+            sofar.msg.oemInfo.token = sofar.msg.token;
+            //获取token
+            let address = '111';//rt.data.addr;
             let usr = facade.GetObject(EntityType.User, sofar.msg.domainId, IndexType.Domain);
             if (!!usr) {//老用户登录
                 usr.socket = sofar.socket; //更新通讯句柄
@@ -86,15 +95,19 @@ async function handle(sofar) {
             }
             else if (!!sofar.msg.oemInfo.openid) {//	新玩家注册
                 //sofar.msg.func = 'login'; //强制登录
-
-                let name = '鸡小德' + facade.util.rand(10000, 99999);	  //随机名称
-                let appId = '';												    //应用ID
+                let name;
+                if(!!sofar.msg.userinfo){
+                    name = sofar.msg.userinfo;
+                }else{
+                    name = '猴子' + facade.util.rand(10000, 99999);	  //随机名称
+                }
+                let appId = '';												    //应用ID    
                 let serverId = '';												//服务器ID
 
                 let oemInfo = sofar.msg.oemInfo;
-                if (oemInfo.userName) {
-                    name = oemInfo.userName;
-                }
+                // if (oemInfo.userName) {
+                //     name = oemInfo.userName;
+                // }
                 if (oemInfo.appId) {
                     appId = oemInfo.appId;
                 }
@@ -110,6 +123,9 @@ async function handle(sofar) {
 
                     //写入账号信息
                     usr.WriteUserInfo(appId, serverId, CommonFunc.now(), sofar.msg.oemInfo.token);
+                    if(!!address){
+                        usr.getInfoMgr().SetRecord(RecordType.address,address);//info字段中添加address
+                    }
                     sofar.facade.notifyEvent('user.newAttr', {user: usr, attr:[{type:'uid', value:usr.id}, {type:'name', value:usr.name}]});
                     sofar.facade.notifyEvent('user.afterRegister', {user:usr});
                 }
@@ -119,12 +135,11 @@ async function handle(sofar) {
                 if(sofar.facade.options.debug){//模拟填充测试数据/用户头像信息
                     ret.figureurl = facade.configration.DataConst.user.icon;
                 }
-
+                //console.log(usr.getPocket().getList());获得当前用户的item
                 sofar.facade.notifyEvent('user.afterLogin', {user:usr, objData:sofar.msg});//发送"登录后"事件
                 if(usr.domainType == DomainType.TX) { //设置腾讯会员属性
                     await usr.SetTxInfo(ret); //异步执行，因为涉及到了QQ头像的CDN地址转换
                 }
-
                 usr.sign = sofar.msg.oemInfo.token;         //记录登录令牌
                 usr.time = CommonFunc.now();                //记录标识令牌有效期的时间戳
                 facade.GetMapping(EntityType.User).addId([usr.sign, usr.id],IndexType.Token); //添加一定有效期的令牌类型的反向索引

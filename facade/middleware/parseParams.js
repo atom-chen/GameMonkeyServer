@@ -27,6 +27,7 @@ async function handle(sofar) {
     if (sofar.facade.options.serverType == "Test") {
         sofar.msg.oemInfo.domain = sofar.msg.oemInfo.domain.replace(/IOS/g, "Test").replace(/Android/g, "Test");
     }
+    sofar.msg.oemInfo.openid = sofar.msg.openid;
     sofar.msg.domainId = !!sofar.msg.oemInfo.openid ? sofar.msg.oemInfo.domain + '.' + sofar.msg.oemInfo.openid : '';
 }
 

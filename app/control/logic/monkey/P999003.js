@@ -1,8 +1,10 @@
-let facade = require('../../../../facade/Facade')
-let {ShopTypeEnum, PurchaseType, ResType, ActionExecuteType, ReturnCode} = facade.const
+let facade     = require('../../../../facade/Facade')
+let {ShopTypeEnum, PurchaseStatus,PurchaseType, ResType, ActionExecuteType, ReturnCode} = facade.const
 let UserEntity = require('../../../model/entity/UserEntity')
-let shopInfo = require('../../../../facade/model/assistant/shopInfo')
-const remote = require('../../../lib/authConn');
+let shopInfo   = require('../../../../facade/model/assistant/shopInfo')
+const remote   = require('../../../lib/authConn');
+let LogEntity  = require('../../../model/entity/LogEntity'); 
+let uuid       = require('uuid');
 
 remote.setup({
     type:   'testnet',            //远程全节点类型
@@ -88,6 +90,24 @@ class P999003 extends facade.Control
                     case ShopOperType.buy: //购买并发放奖励
                         let $item = shopInfo.items.get(input.id);
                         if($item != null){
+                            //生成订单
+                            var log = LogEntity.onCreate(user.domain,uuid.v4(),input.id,$item['price'],(new Date()).valueOf(),$item['name'],user.id,PurchaseStatus.create);
+                            //远程调用接口
+                            //   (async ()=>{
+                            //     let params = [
+                            //     '1234',
+                            //     user.openid,
+                            //     log.uuid,
+                            //     log.total_fee,
+                            //     user.openid]; //params为参数数组
+                            //     var rt = await remote.execute('order.pay', params); 
+                            //   })();
+                            // if(1==1){
+                            //     $code = user.getShopInfo().purchase($item);
+                            //     if($code == ReturnCode.Success){
+                            //         user.getPocket().AddRes(ResType.Diamond, -$item['price']);//扣钱
+                            //     }
+                            // }
                             if(user.getPocket().ResEnough(ResType.Diamond, $item['price'])) {
                                 //购买商品、做标记
                                 $code = user.getShopInfo().purchase($item);

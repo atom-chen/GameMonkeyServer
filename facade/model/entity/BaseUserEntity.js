@@ -173,6 +173,17 @@ class BaseUserEntity extends BaseEntity
     }
 
     /**
+     * 同步链上道具
+     * @param {Array} props 
+     */
+    syncProps(props){
+        if(!props){
+            return ;
+        }
+        BonusObject.authChain(this,props);
+    }
+
+    /**
 	 * 设置最后刷新日期
 	 * @param {*}  
 	 */

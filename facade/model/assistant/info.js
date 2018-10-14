@@ -156,6 +156,12 @@ class info extends baseMgr
     set road(val){
         this.SetRecord(RecordType.Road, parseInt(val))
     }
+    get address(){
+        return this.GetRecord(RecordType.address);
+    }
+    set address(val){
+        this.SetRecord(RecordType.address,val);
+    }
 
     /**
      * 是否机器人

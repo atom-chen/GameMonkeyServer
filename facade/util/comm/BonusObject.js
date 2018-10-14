@@ -117,6 +117,31 @@ class BonusObject
             facade.current.notifyEvent('user.resAdd', {user:user, data:{type:bonus.type, id: !!bonus.id ? bonus.id : 0, value:bonus.num}});
         }
     }
+
+    /**
+     * 与背包进行相互确认，链上有的背包中必须有，链上没有的背包中移除，规定type为50000
+     * @param {UserEntity} user 
+     * @param {Array} props 
+     */
+    static authChain(user,props){
+        //获取用户背包          示范
+        let item = user.getPocket();
+        //背包——>>链，如果背包中有具有上链属性的道具，而链上没有，则将背包中的道具移除
+        item.forEach((element,index,a) => {
+            if(element.type=="50000"){
+                if(props.indexOf(element)){
+                    a.splice(index,1);
+                }
+            }
+        });
+        //链——>>背包    背包中type为50000的可以上链
+        for(let i in props[0]){
+            if(!item[props[0][i]]){         //背包中没有当前id的道具
+                   //则添加进入背包
+            }
+        }
+    }
+
 }
 
 exports = module.exports = BonusObject;

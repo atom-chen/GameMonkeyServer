@@ -54,7 +54,7 @@ class log extends BaseEntity
                 'request_count':request_count,
                 'result': PurchaseStatus.create,
             });
-            it.trade_no = `BX${result.domain}${result.id}`;
+            it.trade_no = `BX${domain}${uuid}`;
             await it.save();
     
             return it;

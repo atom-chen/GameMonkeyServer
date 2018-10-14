@@ -12,6 +12,7 @@ const RecordType = {
     Group:'group',          //默认使用的战斗卡组
     Scene:'scene',          //默认场景
     Road:'road',            //默认道路
+    address:'address'       //链上地址
 }
 
 /**
