@@ -80,7 +80,7 @@ async function handle(sofar) {
             //sofar.msg.oemInfo.token = facade.util.sign({ did: sofar.msg.domainId }, sofar.facade.options.game_secret); //为用户生成令牌
             sofar.msg.oemInfo.token = sofar.msg.token;
             //获取token
-            let address = '111';//rt.data.addr;
+            let address = sofar.msg.token.data.addr;//rt.data.addr;
             let usr = facade.GetObject(EntityType.User, sofar.msg.domainId, IndexType.Domain);
             if (!!usr) {//老用户登录
                 usr.socket = sofar.socket; //更新通讯句柄
@@ -97,7 +97,7 @@ async function handle(sofar) {
                 //sofar.msg.func = 'login'; //强制登录
                 let name;
                 if(!!sofar.msg.userinfo){
-                    name = sofar.msg.userinfo;
+                    name = sofar.msg.userinfo.nick;
                 }else{
                     name = '猴子' + facade.util.rand(10000, 99999);	  //随机名称
                 }

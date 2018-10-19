@@ -27,6 +27,14 @@ async function handle(sofar) {
     if (sofar.facade.options.serverType == "Test") {
         sofar.msg.oemInfo.domain = sofar.msg.oemInfo.domain.replace(/IOS/g, "Test").replace(/Android/g, "Test");
     }
+    sofar.msg.token = sofar.msg.token || {};
+    if(sofar.msg.token.constructor == String){
+        sofar.msg.token = JSON.parse(sofar.msg.token);
+    }
+    sofar.msg.userinfo = sofar.msg.userinfo || {};
+    if(sofar.msg.userinfo.constructor == String){
+        sofar.msg.userinfo = JSON.parse(sofar.msg.userinfo);
+    }
     sofar.msg.oemInfo.openid = sofar.msg.openid;
     sofar.msg.domainId = !!sofar.msg.oemInfo.openid ? sofar.msg.oemInfo.domain + '.' + sofar.msg.oemInfo.openid : '';
 }

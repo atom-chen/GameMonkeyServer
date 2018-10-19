@@ -1,5 +1,5 @@
 let facade     = require('../../../../facade/Facade')
-let {ShopTypeEnum, PurchaseStatus,PurchaseType, ResType, ActionExecuteType, ReturnCode} = facade.const
+let {ShopTypeEnum, PurchaseStatus,PurchaseType, ResType, ActionExecuteType, ReturnCode,cid} = facade.const
 let UserEntity = require('../../../model/entity/UserEntity')
 let shopInfo   = require('../../../../facade/model/assistant/shopInfo')
 const remote   = require('../../../lib/authConn');
@@ -8,11 +8,11 @@ let uuid       = require('uuid');
 
 remote.setup({
     type:   'testnet',            //远程全节点类型
-    ip:     '114.116.12.248',          //远程全节点地址
+    ip:     '114.116.19.125',          //远程全节点地址
     apiKey: 'bookmansoft',        //远程全节点基本校验密码
     id:     'primary',            //默认访问的钱包编号
-    cid:    '26df58b0-c3f7-11e8-9b6a-535f0e95d0fa',        //终端编码，作为访问远程全节点时的终端标识
-    token:  '029edeaccf8444961f80ba61b80cf7c73beff147fb4b5166b3fb696669fdfba8d1', //访问钱包时的令牌固定量，通过HMAC算法，将令牌随机量和令牌固定量合成为最终的访问令牌
+    cid:    '2c9af1d0-7aa3-11e8-8095-3d21d8a3bdc9',//特约生产者编码，用于全节点计算令牌固定量
+    token:  '03f6682764acd7e015fe4e8083bdb2b969eae0d6243f810a370b23ad3863c2efcd', //特约生产者令牌固定量，由全节点统一制备后，离线分发给各个终端
 });
 
 /**
@@ -92,16 +92,23 @@ class P999003 extends facade.Control
                         if($item != null){
                             //生成订单
                             var log = LogEntity.onCreate(user.domain,uuid.v4(),input.id,$item['price'],(new Date()).valueOf(),$item['name'],user.id,PurchaseStatus.create);
-                            //远程调用接口
-                            //   (async ()=>{
-                            //     let params = [
-                            //     '1234',
-                            //     user.openid,
-                            //     log.uuid,
-                            //     log.total_fee,
-                            //     user.openid]; //params为参数数组
-                            //     var rt = await remote.execute('order.pay', params); 
-                            //   })();
+                            console.log(user.baseMgr.info.address);
+                            remote.execute('prop.order', [
+                                cid, //游戏编号
+                                facade.util.rand(10000000, 9999999999), //道具原始
+                                50000, //道具含金量
+                                user.baseMgr.info.address //游戏内玩家的有效地址
+                            ]).then(ret => {
+                                // if(!!ret){
+                                //     console.log("成功！");
+                                // }else{
+                                //     throw new Error("没有成功")
+                                // }
+                                console.log(ret)
+                            }).catch(error=>{
+                                console.log(error);
+                            });
+                        
                             // if(1==1){
                             //     $code = user.getShopInfo().purchase($item);
                             //     if($code == ReturnCode.Success){
