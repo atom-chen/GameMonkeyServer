@@ -1,7 +1,7 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {EntityType, UserStatus, ActivityType, NotifyType, ActionExecuteType, em_Condition_Type, OperEnum, ReturnCode} = facade.const
-let UserEntity = facade.UserEntity
-let BonusObject = require('../../../../facade/util/comm/BonusObject')
+let UserEntity = facade.entities.UserEntity
+let BonusObject = facade.Util.BonusObject
 
 /**
  * 邮箱相关的操作类型

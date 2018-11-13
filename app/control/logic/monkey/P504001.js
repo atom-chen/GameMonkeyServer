@@ -1,7 +1,7 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {PurchaseType, ResType, ActionExecuteType, ReturnCode} = facade.const
 let UserEntity = require('../../../model/entity/UserEntity')
-let PotentialClientItem = require('../../../../facade/util/potential/PetClientItem')
+let PotentialClientItem = facade.Util.PotentialClientItem
 
 /**
  * PVE伙伴操作类型码

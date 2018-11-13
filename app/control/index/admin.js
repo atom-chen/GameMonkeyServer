@@ -1,6 +1,5 @@
-let facade = require('../../../facade/Facade')
-let Sequelize = require('sequelize');
-let query = require('../../../facade/util/mysql');
+let facade = require('gamecloud')
+let query = require('../../util/mysql');
 
 /**
  * 配置管理器

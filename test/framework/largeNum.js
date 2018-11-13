@@ -1,4 +1,5 @@
-let {LargeNumberCalculator} = require('../../facade/util/comm/LargeNumberCalculator');
+let facade = require('gamecloud')
+let LargeNumberCalculator = facade.Util.LargeNumberCalculator
 let expect = require('chai').expect; //断言库
 
 describe('large Number', ()=>{

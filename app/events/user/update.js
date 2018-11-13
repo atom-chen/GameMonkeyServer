@@ -1,6 +1,6 @@
-let facade = require('../../../facade/Facade')
-let UserEntity = facade.UserEntity
-let autoSave = require('../../../facade/util/autoExec/autoSave');
+let facade = require('gamecloud')
+let UserEntity = facade.entities.UserEntity
+let autoSave = facade.autoExec.autoSave
 
 /**
  * Created by admin on 2017-05-26.

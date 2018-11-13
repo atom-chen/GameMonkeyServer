@@ -1,7 +1,7 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {EntityType, InviteType, NotifyType, ResType,ActivityType,em_Condition_Type,em_Condition_Checkmode, ReturnCode} = facade.const
-let AllyObject = facade.EntityList.AllyObject
-let UserEntity = facade.UserEntity
+let AllyObject = facade.entities.AllyObject
+let UserEntity = facade.entities.UserEntity
 
 function handle(event){ 
     /**

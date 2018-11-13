@@ -1,6 +1,6 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {NotifyType, ResType,ActivityType,em_Condition_Type,em_Condition_Checkmode} = facade.const
-let {EventData} = require('../../../facade/util/comm/EventData')
+let {EventData} = facade.Util.EventData
 
 /**
  * 使用了特殊道具卡

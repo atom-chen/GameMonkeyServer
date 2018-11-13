@@ -1,7 +1,6 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {UserStatus, PurchaseType, ResType, ActionExecuteType, ReturnCode,GuideList} = facade.const
-let UserEntity = facade.UserEntity
-let LargeNumberCalculator = require('../../../../facade/util/comm/LargeNumberCalculator')
+let UserEntity = facade.entities.UserEntity
 
 /**
  * Class P999002 获取用户常用状态，包括金币、元宝、魂石、状态
@@ -41,7 +40,7 @@ class P999002 extends facade.Control
     async Execute(user, objData) {
         let $data = new D999002();
         let $code = ReturnCode.Success;
-        let $status = facade.Indicator.inst(user['status']);
+        let $status = facade.tools.Indicator.inst(user['status']);
         let $tm = user.getTaskMgr();
         if($tm.FinishedTask() > 0){
             $status.set(UserStatus.task);

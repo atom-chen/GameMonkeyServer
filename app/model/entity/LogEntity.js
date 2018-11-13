@@ -1,4 +1,5 @@
-let BaseLogEntity = require('../../../facade/model/entity/log')
+let facade = require('gamecloud')
+let BaseLogEntity = facade.BaseLogEntity
 
 /**
  * 用户角色类，继承自框架的UserBaseEntity

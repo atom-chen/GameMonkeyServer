@@ -1,8 +1,8 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {AllySetting, em_Ally_Oper, InviteType, PurchaseType, ResType, ActionExecuteType, ReturnCode} = facade.const
-let UserEntity = facade.UserEntity
-let PotentialClientItem = require('../../../../facade/util/potential/PetClientItem')
-let AllyObject = facade.EntityList.AllyObject
+let UserEntity = facade.entities.UserEntity
+let PotentialClientItem = facade.Util.PotentialClientItem
+let AllyObject = facade.entities.AllyObject
 
 /**
  * 联盟管理

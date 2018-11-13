@@ -2,7 +2,7 @@
  * 单元测试：后台管理
  * Creted by liub 2017.3.24
  */
-let remote = require('../facade/util/clientComm')();
+let remote = require('./util')
 
 describe('后台管理', function() {
     /**

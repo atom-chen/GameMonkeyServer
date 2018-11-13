@@ -1,4 +1,4 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {ReturnCode, UserStatus, em_Condition_Type, em_Condition_Checkmode, NotifyType, ActivityType, RankType, em_EffectCalcType,em_Effect_Comm,mapOfTechCalcType} = facade.const
 
 /**
@@ -64,7 +64,7 @@ class config extends facade.Control {
                         code: ReturnCode.Success,
                         //注意：返回的是服务器的mapping地址
                         data: {
-                            newbie: facade.Indicator.inst(ui.status).check(UserStatus.isNewbie), 
+                            newbie: facade.tools.Indicator.inst(ui.status).check(UserStatus.isNewbie), 
                             ip: this.parent.serversInfo[ui.stype][ui.sid].webserver.mapping, 
                             port:this.parent.serversInfo[ui.stype][ui.sid].webserver.port
                         }

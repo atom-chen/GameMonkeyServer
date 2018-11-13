@@ -1,6 +1,6 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {em_Condition_Checkmode, NotifyType, ResType, ActivityType,em_Condition_Type} = facade.const
-let {EventData} = require('../../../facade/util/comm/EventData')
+let EventData = facade.Util.EventData
 
 /**
  * 任务事件

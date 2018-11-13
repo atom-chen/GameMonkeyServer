@@ -1,4 +1,5 @@
-let BaseAllyObject = require('../../../facade/model/entity/BaseAllyObject')
+let facade = require('gamecloud')
+let BaseAllyObject = facade.BaseAllyObject
 
 /**
  * 联盟类，继承自框架的BaseAllyObject

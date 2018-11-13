@@ -1,4 +1,5 @@
-let CoreOfBase = require('../../facade/core/CoreOfBase')
+const facade = require('gamecloud')
+let CoreOfBase = facade.CoreOfBase
 
 /**
  * URL转CDN地址

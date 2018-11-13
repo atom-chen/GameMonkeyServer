@@ -1,4 +1,4 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {DomainType, UserStatus} = facade.const
 let {now, ms} = facade.util
 

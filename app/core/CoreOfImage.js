@@ -2,8 +2,8 @@
  * Updated by liub on 2017-07-02.
  */
 
-let CoreOfBase = require('../../facade/core/CoreOfBase');
-let request = require('request');
+const facade = require('gamecloud')
+let CoreOfBase = facade.CoreOfBase
 let rp = require('request-promise');
 
 /**
@@ -25,15 +25,7 @@ class CoreOfImage extends CoreOfBase {
         app.get('/socialImg', (req, res)=>{
             if(!!req.query.m){
                 try{
-                    //console.time('getImage');
-                    
-                    //普通版本
-                    //request(decodeURIComponent(req.query.m)).pipe(res);   
-
-                    //Promise版本
                     rp({uri: decodeURIComponent(req.query.m),headers: {'User-Agent': 'Request-Promise',}}).pipe(res);
-
-                    //console.timeEnd('getImage');
                 }
                 catch(e){
                     console.error(e);

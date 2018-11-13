@@ -4,9 +4,10 @@
  *
  * only skip before after beforeEach afterEach
  */
-let remote = require('../../facade/util/clientComm')()
-let Indicator = require('../../facade/util/Indicator'); //标志位管理
-let {UserStatus, ActionExecuteType, NotifyType, ReturnCode} = require('../../facade/define/comm');
+
+let facade = require('gamecloud')
+const remote = require('../util')
+let {UserStatus, ActionExecuteType, NotifyType, ReturnCode} = facade.const;
 
 describe('邮箱', function() {
     it('消息系统 - 删除消息', done =>{

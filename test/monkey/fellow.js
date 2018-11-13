@@ -1,5 +1,6 @@
-let remote = require('../../facade/util/clientComm')();
-let ConfigManager = require('../../facade/util/potential/ConfigManager')
+let remote = require('../util')
+const facade = require('gamecloud')
+let ConfigManager = facade.Util.ConfigManager
 
 describe('PVE伙伴管理', function() {
     it('计算高阶升级费用', () =>{

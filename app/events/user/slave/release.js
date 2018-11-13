@@ -3,7 +3,7 @@
  * 
  * 奴隶释放事件处理句柄
  */
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {EntityType, ActivityType, em_Condition_Type, em_Condition_Checkmode, ReturnCode, NotifyType, DomainType, UserStatus} = facade.const
 
 function handle(data) {

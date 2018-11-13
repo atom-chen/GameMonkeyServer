@@ -1,4 +1,5 @@
-let {MiddlewareParam} = require('../../facade/define/comm')
+let facade = require('gamecloud')
+let {MiddlewareParam} = facade.const
 
 /**
  * test

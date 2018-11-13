@@ -1,6 +1,6 @@
-let remote = require('../../facade/util/clientComm')();
-let facade = require('../../facade/Facade')
-let BattleRoom = require('../../facade/util/battle/BattleManager')
+let remote = require('../util')
+let facade = require('gamecloud')
+let BattleRoom = facade.Util.BattleManager
 let {ResType, SkillType} = facade.const;
 
 function users(){//模拟用户布阵

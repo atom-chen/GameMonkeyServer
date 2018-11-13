@@ -4,7 +4,7 @@
  *
  * @note 由于JSON中不便放置注释，关于配置文件，需要策划提供额外的字段说明文档
  */
-let remote = require('../facade/util/clientComm')();
+let remote = require('./util')
 
 describe('配置文件', function() {
     it('获取商品列表 shopdata', function(done) {

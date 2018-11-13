@@ -1,5 +1,5 @@
-let facade = require('../../../facade/Facade')
-let UserEntity = facade.UserEntity
+let facade = require('gamecloud')
+let UserEntity = facade.entities.UserEntity
 
 /**
  * 远程终端

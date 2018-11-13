@@ -1,4 +1,4 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {ReturnCode, NotifyType} = facade.const
 /**
  * 部分测试流程

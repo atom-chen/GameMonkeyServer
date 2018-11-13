@@ -1,10 +1,10 @@
 /**
  * Created by liub on 2017-04-06.
  */
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {EntityType, IndexType, DomainType, ReturnCode} = facade.const
 let {now, ms, sign} = facade.util
-let UserEntity = facade.UserEntity
+let UserEntity = facade.entities.UserEntity
 
 class authPay extends facade.Control {
     /**

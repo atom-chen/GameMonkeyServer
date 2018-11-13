@@ -1,4 +1,4 @@
-let remote = require('../../facade/util/clientComm')();
+let remote = require('../util')
 
 describe('联盟', function() {
     it('ally create', done =>{

@@ -1,12 +1,11 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {RecordType, IndexType, EntityType, SkillType, PurchaseType, ResType, ActionExecuteType, ReturnCode} = facade.const
-let UserEntity = require('../../../model/entity/UserEntity')
-let PotentialClientItem = require('../../../../facade/util/potential/PetClientItem')
-let BattleRoom = require('../../../../facade/util/battle/BattleManager')
-let ConfigManager = require('../../../../facade/util/potential/ConfigManager')
-let {ConfigMgr} = require('../../../../facade/util/battle/Action')
-let {BaseBattleParam} = require('../../../../facade/util/battle/util')
-let {BattleHero} = require('../../../../facade/util/battle/hero');
+let UserEntity = facade.entities.UserEntity
+let BattleRoom = facade.Util.BattleManager
+let ConfigManager = facade.Util.ConfigManager
+let ConfigMgr = facade.Util.ConfigMgr
+let BaseBattleParam = facade.Util.BaseBattleParam
+let BattleHero = facade.Util.BattleHero
 
 /**
  * PVP英雄操作类型码

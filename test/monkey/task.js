@@ -1,4 +1,4 @@
-let remote = require('../../facade/util/clientComm')();
+let remote = require('../util')
 
 describe('任务管理', function() {
     it('查询任务列表', done => {

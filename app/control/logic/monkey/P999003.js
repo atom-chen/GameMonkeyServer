@@ -1,19 +1,23 @@
-let facade     = require('../../../../facade/Facade')
-let {ShopTypeEnum, PurchaseStatus,PurchaseType, ResType, ActionExecuteType, ReturnCode,cid} = facade.const
-let UserEntity = require('../../../model/entity/UserEntity')
-let shopInfo   = require('../../../../facade/model/assistant/shopInfo')
-const remote   = require('../../../lib/authConn');
-let LogEntity  = require('../../../model/entity/LogEntity'); 
 let uuid       = require('uuid');
+let facade     = require('gamecloud')
+let {ShopTypeEnum, PurchaseStatus,PurchaseType, ResType, ActionExecuteType, ReturnCode,cid} = facade.const
+let UserEntity = facade.entities.UserEntity
+let shopInfo   = facade.assistants.shopInfo
+let LogEntity  = facade.entities.LogEntity
 
-remote.setup({
-    type:   'testnet',            //远程全节点类型
-    ip:     '114.116.19.125',          //远程全节点地址
-    apiKey: 'bookmansoft',        //远程全节点基本校验密码
-    id:     'primary',            //默认访问的钱包编号
-    cid:    '2c9af1d0-7aa3-11e8-8095-3d21d8a3bdc9',//特约生产者编码，用于全节点计算令牌固定量
-    token:  '03f6682764acd7e015fe4e8083bdb2b969eae0d6243f810a370b23ad3863c2efcd', //特约生产者令牌固定量，由全节点统一制备后，离线分发给各个终端
-});
+//引入工具包
+const toolkit = require('gamegoldtoolkit')
+//创建授权式连接器实例
+const remote = new toolkit.conn();
+remote.setFetch(require('node-fetch'))  //兼容性设置，提供模拟浏览器环境中的 fetch 函数
+//     .setup({ //设置授权式连接器的参数 - 将会覆盖默认设置
+//     type:   'testnet',               //希望连接的对等网络的类型，分为 testnet 和 main
+//     ip:     '127.0.0.1',             //远程全节点地址
+//     apiKey: 'bookmansoft',           //远程全节点基本校验密码
+//     id:     'primary',               //默认访问的钱包编号
+//     cid:    'terminal001',           //终端编码，作为访问远程全节点时的终端标识
+//     token:  '0340129aaa7a69ac10bfbf314b9b1ca8bdda5faecce1b6dab3e7c4178b99513392', //访问钱包时的令牌固定量，通过HMAC算法，将令牌随机量和令牌固定量合成为最终的访问令牌
+// });
 
 /**
  * 获取商品列表，细分为：元宝商城；普通商城；工会商城；荣誉商城
@@ -74,7 +78,7 @@ class P999003 extends facade.Control
             return {code:$code, data: $data};
         }
 
-        let $status = facade.Indicator.inst(input.type);
+        let $status = facade.tools.Indicator.inst(input.type);
         Object.keys(ShopTypeEnum).map($key=>{
             let $val = ShopTypeEnum[$key];
             if($status.check($val)){

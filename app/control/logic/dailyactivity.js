@@ -1,4 +1,4 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {ResType, ReturnCode} = facade.const
 /**
  * 活动功能相关的控制器

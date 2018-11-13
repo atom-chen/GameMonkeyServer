@@ -1,6 +1,6 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {ResType, ActionExecuteType, ReturnCode} = facade.const
-let UserEntity = facade.UserEntity
+let UserEntity = facade.entities.UserEntity
 
 /**
  * 副本探索 - 随机事件管理

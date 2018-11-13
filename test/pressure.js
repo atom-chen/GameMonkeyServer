@@ -4,8 +4,8 @@
  *
  * @note 执行前修改mocha.opts中超时时长
  */
-let remote = require('./../facade/util/clientComm')();
-let {wait} = require('../facade/util/commonFunc');
+let remote = require('./util')
+let {wait} = require('./utils/commonFunc');
 
 describe.skip('压力测试',  function() {
     it('同时在线', async done =>{

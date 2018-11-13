@@ -1,4 +1,4 @@
-let Collection = require('../../facade/util/Collection')
+let Collection = require('../utils/Collection')
 
 describe('Collection', ()=>{
     it('load', ()=>{

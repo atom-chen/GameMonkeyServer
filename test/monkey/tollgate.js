@@ -1,5 +1,5 @@
-let remote = require('../../facade/util/clientComm')();
-let facade = require('../../facade/Facade')
+let remote = require('../util');
+let facade = require('gamecloud')
 let {ResType} = facade.const;
 
 describe('挂机关卡', function() {

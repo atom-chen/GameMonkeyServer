@@ -1,8 +1,8 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {ResType, ActionExecuteType, ReturnCode, OperEnum ,GuideList} = facade.const
-let UserEntity = require('../../../model/entity/UserEntity');
-let TollgateObject = require('../../../../facade/util/tollgate/TollgateObject')
-let OperationInfo = require('../../../../facade/util/tollgate/OperationInfo')
+let UserEntity = facade.entities.UserEntity
+let TollgateObject = facade.Util.TollgateObject
+let OperationInfo = facade.Util.OperationInfo
 
 /**
  * 副本探索管理报文

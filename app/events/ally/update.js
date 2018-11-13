@@ -1,4 +1,4 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let allyAutoSave = require('../../util/autoExec/allyAutoSave');
 
 /**

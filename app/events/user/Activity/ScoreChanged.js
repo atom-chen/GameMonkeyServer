@@ -1,7 +1,7 @@
 /**
  * Created by admin on 2017-07-20.
  */
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {NotifyType} = facade.const
 
 /**

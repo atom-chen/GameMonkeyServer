@@ -4,9 +4,10 @@
  *
  * only skip before after beforeEach afterEach
  */
-let remote = require('../../facade/util/clientComm')().locate('127.0.0.1', 9101);
-let Indicator = require('../../facade/util/Indicator'); //标志位管理
-let {UserStatus, ActionExecuteType, NotifyType, ReturnCode} = require('../../facade/define/comm');
+
+let facade = require('gamecloud')
+const remote = require('../util')
+let {UserStatus, ActionExecuteType, NotifyType, ReturnCode} = facade.const;
 
 let myOpenid = '18681223392';
 let uh = `q?sessionid=${myOpenid}&domain=tx.IOS&`;

@@ -2,7 +2,7 @@
  * 单元测试：消息推送
  * Creted by liub 2017.5.15
  */
-let remote = require('../facade/util/clientComm')();
+let remote = require('./util')
 
 //一组单元测试，可使用 skip only 修饰
 describe('推送', function() {

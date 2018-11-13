@@ -1,6 +1,6 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {EntityType} = facade.const
-let AllyNews = facade.EntityList.AllyNews
+let AllyNews = facade.entities.AllyNews
 
 /**
  * 生成新的联盟新闻

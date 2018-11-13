@@ -1,4 +1,5 @@
-let Lock = require('../../facade/util/Lock');
+const facade = require('gamecloud')
+let Lock = facade.tools.Lock
 let locker = new Lock(true);
 
 //卡余额

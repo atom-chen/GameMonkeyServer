@@ -1,4 +1,4 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {EntityType, ActivityType, em_Condition_Type, em_Condition_Checkmode, ReturnCode, NotifyType, DomainType, UserStatus} = facade.const
 /**
  * Created by liub on 2017-08-4.

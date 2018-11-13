@@ -1,6 +1,6 @@
-let facade = require('../../../facade/Facade')
-let time5 = new facade.updateMgr(5000);
-let {EventData} = require('../../../facade/util/comm/EventData')
+let facade = require('gamecloud')
+let time5 = new facade.tools.updateMgr(5000);
+let EventData = facade.Util.EventData
 
 /**
  * Created by admin on 2017-05-26.

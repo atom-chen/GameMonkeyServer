@@ -1,7 +1,7 @@
-let facade = require('../../../facade/Facade')
+let facade = require('gamecloud')
 let {NotifyType, ResType, ActivityType,em_Condition_Type,em_Condition_Checkmode} = facade.const
-let {EventData} = require('../../../facade/util/comm/EventData')
-let {LargeNumberCalculator} = require('../../../facade/util/comm/LargeNumberCalculator')
+let LargeNumberCalculator = facade.Util.LargeNumberCalculator
+let EventData = facade.Util.EventData
 
 /**
  * 添加资源消息句柄

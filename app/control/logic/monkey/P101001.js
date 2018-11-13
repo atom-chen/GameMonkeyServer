@@ -1,6 +1,6 @@
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {em_task_status, em_Condition_Checkmode, em_Condition_Type, ResType, ActionExecuteType, ReturnCode} = facade.const
-let UserEntity = facade.UserEntity
+let UserEntity = facade.entities.UserEntity
 
 /**
  * 任务系统报文：领取奖励 -1表示任务不存在，-2表示任务条件不满足，其余表示奖励字符串

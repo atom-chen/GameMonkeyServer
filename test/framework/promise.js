@@ -1,4 +1,4 @@
-let remote = require('../../facade/util/clientComm')();
+let remote = require('../util')
 
 /**
  * 单元测试：Promise

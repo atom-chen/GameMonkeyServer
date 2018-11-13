@@ -5,7 +5,7 @@
  * 
  * *事件句柄中，this指向门面对象，也就是facadeBase，data.user指向事件的接收用户对象，data.msg为事件内容
  */
-let facade = require('../../../../facade/Facade')
+let facade = require('gamecloud')
 let {EntityType, ActivityType, ReturnCode} = facade.const
 
 function handle(data) {

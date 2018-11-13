@@ -2,7 +2,7 @@
  * 单元测试：表达式解析
  * Creted by liub 2017.7.19
  */
-let FormulaEvaluator = require('../../facade/util/formula');
+let FormulaEvaluator = require('../utils/formula');
 let expect = require('chai').expect; //断言库
 
 describe('表达式解析', function() {

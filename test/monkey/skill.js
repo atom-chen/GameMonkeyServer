@@ -1,4 +1,4 @@
-let remote = require('../../facade/util/clientComm')();
+let remote = require('../util');
 
 describe('时效性技能', function() {
     it('清除全部技能CD', done => {

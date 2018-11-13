@@ -1,4 +1,4 @@
-let remote = require('../../facade/util/clientComm')();
+let remote = require('../util');
 
 describe('图腾管理', function() {
     it('获取待激活的图腾列表, 并激活其中的第一项', done => {

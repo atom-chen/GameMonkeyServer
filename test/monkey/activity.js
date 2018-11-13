@@ -1,4 +1,4 @@
-let remote = require('../../facade/util/clientComm')();
+let remote = require('../util')
 
 describe('活动', function() {
     it('新手引导', done =>{
