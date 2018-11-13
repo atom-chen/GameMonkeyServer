@@ -10,5 +10,11 @@ if(env.constructor == String){
     env = JSON.parse(env);
 }
 
+facade.boot({env:{
+    serverType: "Index",      //待调测的服务器类型
+    serverId: 1             //待调测的服务器编号
+}});
+
+
 //系统主引导流程，除了必须传递运行环境变量 env，也可以搭载任意变量，这些变量都将合并为核心类的options对象的属性，供运行时访问
 facade.boot({env:env});

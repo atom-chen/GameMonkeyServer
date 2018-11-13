@@ -189,7 +189,7 @@ class CoreOfLogic extends CoreOfBase
                     this.remoting.user = {stype: this.options.serverType, sid: this.options.serverId, socket: this.remoting};
                 }
                 else{
-                    console.log(`${this.options.serverType}.${this.options.serverId} failed login`);
+                    console.log(`${this.options.serverType}.${this.options.serverId} failed login ${msg.code}`);
                 }
             })
         });

@@ -2,7 +2,7 @@
   "dev": {
     "driver": "mysql",
     "user": "root",
-    "password": "123456",
+    "password": "helloworld",
     "host": "localhost",
     "database": "monkey",
     "multipleStatements": true
@@ -11,7 +11,7 @@
   "prod": {
     "driver": "mysql",
     "user": "root",
-    "password": "123456",
+    "password": "helloworld",
     "host": "localhost",
     "database": "monkey",
     "multipleStatements": true

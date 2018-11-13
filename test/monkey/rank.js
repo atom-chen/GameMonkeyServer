@@ -36,7 +36,7 @@ Array.prototype.randomElement = function($n=1){
 }
 
 describe('排行榜', function() {
-    it.only('排行榜 - 查询总榜', done =>{
+    it('排行榜 - 查询总榜', done =>{
         remote.fetch({url:uh+"act=601001&oper=1"}, msg => {
             remote.isSuccess(msg);
             console.log(msg.data.rank);

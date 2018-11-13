@@ -78,10 +78,10 @@ class CoreOfIndex extends facade.CoreOfBase
         //缓存管理器
         this.cacheMgr = new facade.cache(this);
 
-        console.time('Load Db');
+        console.time(`${this.options.serverType}${this.options.serverId} Load Db`);
         await this.service.dailyactivity.loadDb(); //载入世界Boss活动信息
         this.loadAllUsers(()=>{
-            console.timeEnd('Load Db');
+            console.timeEnd(`${this.options.serverType}${this.options.serverId} Load Db`);
             console.log(`${this.options.serverType}.${this.options.serverId}: 数据载入完成，准备启动网络服务...`);
             this.StartSocketServer(app);
         });

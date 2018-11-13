@@ -23,7 +23,7 @@ module.exports = {
                     "logging" : false,
                     "db": "monkey",
                     "sa": "root",
-                    "pwd": "123456",
+                    "pwd": "helloworld",
                     "host": "127.0.0.1",
                     "port": 3306
                 },
@@ -69,7 +69,7 @@ module.exports = {
                     "logging" : false,
                     "db": "monkey",
                     "sa": "root",
-                    "pwd": "123456",
+                    "pwd": "helloworld",
                     "host": "127.0.0.1",
                     "port": 3306
                 },
@@ -86,7 +86,7 @@ module.exports = {
                     "logging" : false,
                     "db": "monkey",
                     "sa": "root",
-                    "pwd": "123456",
+                    "pwd": "helloworld",
                     "host": "127.0.0.1",
                     "port": 3306
                 },
@@ -104,20 +104,6 @@ module.exports = {
      */
     "apps" : [
         {
-            "name"      : "Chick_Index_1",
-            "script"    : "app/start.js",
-            "cwd"         : "./",  // pm2运行目录相对main.js的路径
-            //"out_file"   : "./logs/index1/app-out.log",  // 普通日志路径
-            "error_file" : "./logs/index1/app-err.log",  // 错误日志路径
-            "env": {
-                "NODE_ENV": "production",
-                "sys":{
-                    "serverType":"Index",
-                    "serverId":1
-                }
-            }
-        }
-        ,{
             "name"      : "Chick_IOS_1",
             "script"    : "app/start.js",
             "cwd"         : "./",  // pm2运行目录相对main.js的路径

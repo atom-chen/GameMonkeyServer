@@ -1,6 +1,7 @@
 let facade = require('../../../facade/Facade')
 let {RecordType, UserVipLevelSetting, em_UserVipLevel, EntityType,IndexType, ResType, RankType,  DomainTable, em_Effect_Comm, 
     DomainType, DomainList,GetDomainType, em_Condition_Type,em_Condition_Checkmode, UserStatus, ReturnCode} = facade.const
+let CommonFunc = facade.util
 let BonusObject = require('../../../facade/util/comm/BonusObject')
 let ChatPrivateManager = require('../../../facade/util/comm/ChatPrivateManager')
 let EffectManager = require('../../../facade/util/comm/EffectManager')
