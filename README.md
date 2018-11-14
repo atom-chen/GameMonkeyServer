@@ -2,7 +2,9 @@
 
 ## 概述
 
-gamemonkeyserver 是一个基于游戏云服务器(gamecloud, https://github.com/bookmansoft/gamecloud)的脚手架项目，一个基于 Restful / Websocket 的服务端系统
+- gamemonkeyserver 是一个基于游戏云服务器(gamecloud)的脚手架项目，一个基于 Restful / Websocket 的服务端系统
+- gamecloud仓库位于: https://github.com/bookmansoft/gamecloud
+- gamemonkeyserver仓库位于: https://github.com/bookmansoft/gamemonkeyserver
 
 补充说明文档请参见 ./schema 目录
 
@@ -58,7 +60,7 @@ npm run dbinit
         "user": "root",
         "password": "helloworld",
         "host": "localhost",
-        "database": "gamecloud",
+        "database": "monkey",
         "multipleStatements": true
     }
     }
@@ -66,7 +68,7 @@ npm run dbinit
 
 - 3.2 手动创建数据库，**执行此步骤后请跳过 3.3**
 
-    - 创建数据库 gamecloud , 建议使用此默认名称，如修改则需相应调整各配置文件
+    - 创建数据库 monkey , 建议使用此默认名称，如修改则需相应调整各配置文件
 
     - 数据库初始化
 
@@ -110,7 +112,7 @@ npm run dbinit
  */
 let mysql = {
     "logging" : false,          //是否开启日志
-    "db": "gamecloud",          //数据库名称    
+    "db": "monkey",             //数据库名称    
     "sa": "root",               //数据库用户名
     "pwd": "helloworld",        //数据库用户密码
     "host": "127.0.0.1",        //数据库服务器IP地址
