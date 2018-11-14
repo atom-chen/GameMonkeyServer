@@ -1,3 +1,12 @@
+let mysql = {
+    "logging" : false,
+    "db": "monkey",
+    "sa": "root",
+    "pwd": "helloworld",
+    "host": "127.0.0.1",
+    "port": 3306
+};
+
 /**
  * Created by liub on 2017-04-03.
  */
@@ -19,14 +28,7 @@ module.exports = {
                     "port": 6379,
                     "opts": {}
                 },
-                "mysql": {
-                    "logging" : false,
-                    "db": "monkey",
-                    "sa": "root",
-                    "pwd": "helloworld",
-                    "host": "127.0.0.1",
-                    "port": 3306
-                },
+                "mysql": mysql,
                 "webserver": {
                     "mapping": "127.0.0.1",
                     "host": "127.0.0.1",
@@ -65,14 +67,7 @@ module.exports = {
         },
         "Image":{ //新增图片服务器
             "1":{
-                "mysql": {
-                    "logging" : false,
-                    "db": "monkey",
-                    "sa": "root",
-                    "pwd": "helloworld",
-                    "host": "127.0.0.1",
-                    "port": 3306
-                },
+                "mysql": mysql,
                 "webserver": {
                     "mapping": "127.0.0.1",
                     "host": "127.0.0.1",
@@ -82,14 +77,7 @@ module.exports = {
         },
         "IOS":{
             "1":{
-                "mysql": {
-                    "logging" : false,
-                    "db": "monkey",
-                    "sa": "root",
-                    "pwd": "helloworld",
-                    "host": "127.0.0.1",
-                    "port": 3306
-                },
+                "mysql": mysql,
                 "webserver": {
                     "mapping": "127.0.0.1",
                     "host": "127.0.0.1",
