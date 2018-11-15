@@ -9,12 +9,12 @@ let {NotifyType} = facade.const;
  * @param {*} data 
  */
 function handle(data) {
-    if(!!facade.configration.activity.ActivityScoreBonus[this.service.activity.type] && !!facade.configration.activity.ActivityScoreBonus[this.service.activity.type][data.lv]){
+    if(!!facade.config.fileMap.activity.ActivityScoreBonus[this.service.activity.type] && !!facade.config.fileMap.activity.ActivityScoreBonus[this.service.activity.type][data.lv]){
         //下行奖励通知
         data.user.notify({
             type: NotifyType.activityScoreBonus,
             info: {
-                bonus: facade.configration.activity.ActivityScoreBonus[this.service.activity.type][data.lv].bonus, 
+                bonus: facade.config.fileMap.activity.ActivityScoreBonus[this.service.activity.type][data.lv].bonus, 
                 LV: data.lv, 
                 score: data.score,
                 status: 0

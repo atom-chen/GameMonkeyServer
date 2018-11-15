@@ -1,51 +1,39 @@
 let remote = require('../util')
+let {wait} = require('../utils/commonFunc')
 
-describe('联盟', function() {
-    it('两个用户私聊', done => {
-        let first = true;
+describe('聊天', function() {
+    it('两个用户私聊', async () => {
         let userList = ["777.492", "777.493"];
         let remoteList = [remote.newone, remote.newone];
-        Promise.all([
-            new Promise(resolve=>{remoteList[0].auth({directly:true, openid: userList[0]}, ()=>{resolve({id:remoteList[0].userInfo.id, openid:userList[0]});});}),
-            new Promise(resolve=>{remoteList[1].auth({directly:true, openid: userList[1]}, ()=>{resolve({id:remoteList[1].userInfo.id, openid:userList[1]});});}),
-        ]).then(ret=>{
-            remoteList[1].watch(msg=>{
-                remoteList[1].log(msg);
-                if(first){
-                    first = false;
-                    done();
-                }
-            }, remote.const.NotifyType.chat);
 
-            remoteList[0].fetch({url:`q?act=102001&nid=${ret[1].id}&c=hello`}, msg=>{});
-        }).catch(e=>{});
+        let ret = await Promise.all([
+            new Promise(resolve => { remoteList[0].login({openid: userList[0]}).then(msg => { resolve({id:remoteList[0].userInfo.id, openid:userList[0]}); });}),
+            new Promise(resolve => { remoteList[1].login({openid: userList[1]}).then(msg => { resolve({id:remoteList[1].userInfo.id, openid:userList[1]}); });}),
+        ]);
+
+        remoteList[1].watch(msg => {
+            console.log(msg);
+        }, remote.NotifyType.chat);
+
+        await remoteList[0].fetching({url:`q?act=102001&nid=${ret[1].id}&c=hello`});
     });
 
     //注意：当前系统设定，要求两个用户必须同服
-    it('世界聊天', done =>{
-        let first = true;
+    it('世界聊天', async () => {
         let users = ["777.492", "777.493"];
         let remotes = [remote.newone, remote.newone];
-        remotes[1].watch(msg=>{
+        let msg = await remotes[1].watch(msg=>{
             remotes[1].log(msg);
-            if(first){
-                first = false;
-                done();
-            }
-        }, remote.const.NotifyType.chat).auth({directly:true, openid: users[1]}, ()=>{});
-        remotes[0].auth({directly:true, openid: users[0]}).fetch({url:'q?act=102001&c=hello'}, msg=>{});
+        }, remote.NotifyType.chat).login({openid: users[1]});
+
+        msg = await remotes[0].login({openid: users[0]});
+        await remotes[0].fetching({url:'q?act=102001&c=hello'});
     });
 
-    it('收到系统公告', done =>{
-        let first = true;
-        remote.watch(msg=>{
+    it('收到系统公告', async () => {
+        let msg = await remote.watch(msg=>{
             remote.log(msg);
-            if(first){
-                first = false;
-                done();
-            }
-        }, remote.const.NotifyType.chat).auth({directly:true}, msg=>{
-            remote.isSuccess(msg,true);
-        });
+        }, remote.NotifyType.chat).login();
+        remote.isSuccess(msg,true);
     });
 });

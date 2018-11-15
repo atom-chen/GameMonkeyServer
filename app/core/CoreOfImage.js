@@ -34,7 +34,7 @@ class CoreOfImage extends CoreOfBase {
             }
             else{
                 try{
-                    rp({uri: decodeURIComponent(this.facade.configration.DataConst.user.icon),headers: {'User-Agent': 'Request-Promise',}}).pipe(res);
+                    rp({uri: decodeURIComponent(this.facade.config.fileMap.DataConst.user.icon),headers: {'User-Agent': 'Request-Promise',}}).pipe(res);
                 }
                 catch(e){
                     console.error(e);

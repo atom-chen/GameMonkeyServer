@@ -7,7 +7,7 @@
 let remote = require('./util')
 let {wait} = require('./utils/commonFunc');
 
-describe('压力测试',  function() {
+describe.skip('压力测试',  function() {
     it('同时在线', async () => {
         let dl = ["tx.IOS", "tx.Android"];
         let j = 0;
@@ -23,7 +23,7 @@ describe('压力测试',  function() {
         await wait(5000);
     });
 
-    it.only('并发登录', async () => {
+    it('并发登录', async () => {
         let presure = [0, 100]; //设置压力参数: [循环次数,单次并发]
 
         //region Promise模式：

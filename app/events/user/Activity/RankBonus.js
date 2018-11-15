@@ -13,7 +13,7 @@ function handle(data) {
     data.user.notify({
         type: NotifyType.activityRankBonus, 
         info: {
-            bonus: facade.configration.activity.ActivityRankBonus[this.service.activity.type][data.rank].bonus, 
+            bonus: facade.config.fileMap.activity.ActivityRankBonus[this.service.activity.type][data.rank].bonus, 
             rank: data.rank, 
             status: 0
         }

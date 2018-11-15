@@ -14,7 +14,7 @@ let {EntityType, ActivityType, em_Condition_Type, em_Condition_Checkmode, Return
 function handle(data) {
     let msg = data.msg;
 
-    msg.info.time = facade.configration.DataConst.slave.catchTime;
+    msg.info.time = facade.config.fileMap.DataConst.slave.catchTime;
 
     if(msg.info.src == data.user.openid){//抓捕者
         if(msg.info.code == ReturnCode.Success){

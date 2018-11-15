@@ -2,6 +2,7 @@ let remote = require('../util')
 let facade = require('gamecloud')
 let BattleRoom = facade.Util.BattleManager
 let {ResType, SkillType} = facade.const;
+let {wait} = require('../utils/commonFunc')
 
 function users(){//模拟用户布阵
     return [
@@ -29,148 +30,136 @@ function users(){//模拟用户布阵
 // * ..p      | int      | 当前拥有的专属碎片数量 point
 // * ..b      | int      | 当前战力 power
 
-describe('PVP英雄管理', function() {
-    it('查询列表', done => {
-        remote.auth({directly:true}, msg=>{
+describe.only('PVP英雄管理', function() {
+    it('查询列表', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+
+        msg = await remote.fetching({url:"q?act=502001&oper=1"});
+        remote.isSuccess(msg);
+        Object.keys(msg.data.items).map(key=>{
+            console.log(JSON.stringify(msg.data.items[key]));
+        });
+
+        console.log('万能强化碎片', msg.data.chip);
+        console.log('万能进阶碎片', msg.data.adChip);
+    });
+
+    it('升级', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+
+        msg = await remote.fetching({url:`q?act=999003&oper=99&bonus=${ResType.chip},5000`});
+        remote.isSuccess(msg);
+
+        let recy = 0;
+        let fetch = async function() {
+            let msg = await remote.fetching({url:"q?act=502001&oper=2&id=1&pm=1"});
             remote.isSuccess(msg);
-            remote.fetch({url:"q?act=502001&oper=1"}, function(msg){
+
+            if(++recy< 19) {
+                wait(1000);
+                await fetch();
+            } else {
+                msg = await remote.fetching({url:"q?act=502001&oper=1"});
                 remote.isSuccess(msg);
                 Object.keys(msg.data.items).map(key=>{
                     console.log(JSON.stringify(msg.data.items[key]));
                 });
-
-                console.log('万能强化碎片', msg.data.chip);
-                console.log('万能进阶碎片', msg.data.adChip);
-        
-                done();
-            });
-        });
-    });
-
-    it('升级', done => {
-        remote.auth({directly:true}, msg=>{
-            remote.isSuccess(msg);
-
-            remote.fetch({url:`q?act=999003&oper=99&bonus=${ResType.chip},5000`}, msg=>{
-                remote.isSuccess(msg);
-                let recy = 0;
-                let fetch = function(){
-                    remote.fetch({url:"q?act=502001&oper=2&id=1&pm=1"}, function(msg){
-                        remote.isSuccess(msg);
-
-                        if(++recy< 19){
-                            setTimeout(fetch, 100);
-                        }
-                        else{
-                            remote.fetch({url:"q?act=502001&oper=1"}, function(msg){
-                                remote.isSuccess(msg);
-                                Object.keys(msg.data.items).map(key=>{
-                                    console.log(JSON.stringify(msg.data.items[key]));
-                                });
-                                done();
-                            });
-                        }
-                    });
-                }
-                fetch();
-            });
-        });
-    });
-
-    it('强化 - 使用专用碎片或者万能碎片进行激活或者强化', done => {
-        remote.auth({directly:true}, msg=>{
-            remote.isSuccess(msg);
-            for(let i = 1; i<=25; i++){
-                remote.fetch({url:`q?act=999003&oper=99&bonus=${ResType.PetChipHead},${i},5000`}, msg=>{
-                    remote.isSuccess(msg);
-                    remote.fetch({url:`q?act=502001&oper=3&id=${i}&pm=1`}, function(msg){
-                        remote.isSuccess(msg);
-                        remote.fetch({url:"q?act=502001&oper=1"}, function(msg){
-                            remote.isSuccess(msg);
-                            Object.keys(msg.data.items).map(key=>{
-                                console.log(JSON.stringify(msg.data.items[key]));
-                            });
-                        });
-                    });
-                });
             }
-            setTimeout(done, 3000);
-        });
+        }
+
+        await fetch();
     });
 
-    it('进阶 - 使用进阶碎片进行进阶', done => {
-        remote.auth({directly:true}, msg=>{
+    it('强化 - 使用专用碎片或者万能碎片进行激活或者强化', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+
+        for(let i = 1; i<=25; i++) {
+            msg = await remote.fetching({url:`q?act=999003&oper=99&bonus=${ResType.PetChipHead},${i},5000`});
             remote.isSuccess(msg);
 
-            remote.fetch({url:`q?act=999003&oper=99&bonus=${ResType.advancedChip},5000`}, msg=>{
-                for(i = 1; i<= 25; i++){
-                    remote.fetch({url:`q?act=502001&oper=4&id=${i}&pm=1`}, function(msg){
-                        remote.isSuccess(msg);
-                        remote.fetch({url:"q?act=502001&oper=1"}, function(msg){
-                            remote.isSuccess(msg);
-                            Object.keys(msg.data.items).map(key=>{
-                                console.log(JSON.stringify(msg.data.items[key]));
-                            });
-                            done();
-                        });
-                    });
-                }
-            });
-        });
-    });
-
-    it('离开分组', done => {
-        remote.auth({directly:true}, msg=>{
-            remote.isSuccess(msg);
-            remote.fetch({url:"q?act=502001&oper=8&id=1&gid=1"}, function(msg){
-                remote.isSuccess(msg,true);
-                done();
-            });
-        });
-    });
-
-    it('查询敌方默认卡组', done => {
-        remote.locate('127.0.0.1', 9101).fetch({url:"q?act=502001&oper=10&id=18681223392"}, function(msg){
-            remote.isSuccess(msg,true);
-            done();
-        });
-    });
-
-    it('三界符抽奖', done => {
-        remote.locate('127.0.0.1', 9101).fetch({url:"q?act=502001&oper=1"}, function(msg){
+            msg = await remote.fetching({url:`q?act=502001&oper=3&id=${i}&pm=1`});
             remote.isSuccess(msg);
 
-            let m = {oriPetChip:[], oriChip:0, oriAdChip:0};
-            for(let $key in msg.data.items){
-                let $value = msg.data.items[$key];
-                m.oriPetChip.push($value.p);
-            }
-            m.oriChip = msg.data.chip;
-            m.oriAdChip = msg.data.adChip;
-            console.log(JSON.stringify(m));
+            msg = await remote.fetching({url:"q?act=502001&oper=1"});
+            remote.isSuccess(msg);
 
-            //oper=5 单抽，每天免费3次，后续花费元宝；
-            //oper=11 11连抽，必须花费元宝，10次的花费、抽11次
-            remote.locate('127.0.0.1', 9101).fetch({url:"q?act=502001&oper=11"}, function(msg){
-                remote.isSuccess(msg);
-
-                let n = {petChip:[], chip:0, adChip:0};
-                for(let $key in msg.data.items){
-                    let $value = msg.data.items[$key];
-                    n.petChip.push($value.p);
-                }
-                n.petChip = n.petChip.map((val, idx)=>{
-                    return val - m.oriPetChip[idx];
-                });
-                n.chip = msg.data.chip - m.oriChip;
-                n.adChip = msg.data.adChip - m.oriAdChip;
-                console.log(JSON.stringify(n));
-                done();
+            Object.keys(msg.data.items).map(key=>{
+                console.log(JSON.stringify(msg.data.items[key]));
             });
-        });
+        }
     });
 
-    it.skip('打印模拟战斗到文件', done => {
+    it('进阶 - 使用进阶碎片进行进阶', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+
+        msg = await remote.fetching({url:`q?act=999003&oper=99&bonus=${ResType.advancedChip},5000`});
+        for(i = 1; i<= 25; i++){
+            msg = await remote.fetching({url:`q?act=502001&oper=4&id=${i}&pm=1`});
+            remote.isSuccess(msg);
+
+            msg = await remote.fetching({url:"q?act=502001&oper=1"});
+            remote.isSuccess(msg);
+
+            Object.keys(msg.data.items).map(key=>{
+                console.log(JSON.stringify(msg.data.items[key]));
+            });
+        }
+    });
+
+    it('离开分组', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+        msg = await remote.fetching({url:"q?act=502001&oper=8&id=1&gid=1"});
+        remote.isSuccess(msg,true);
+    });
+
+    it('查询敌方默认卡组', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+
+        msg = await remote.fetching({url:"q?act=502001&oper=10&id=18681223392"});
+        remote.isSuccess(msg,true);
+    });
+
+    it('三界符抽奖', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+
+        msg = await remote.fetching({url:"q?act=502001&oper=1"});
+        remote.isSuccess(msg, true);
+
+        let m = {oriPetChip:[], oriChip:0, oriAdChip:0};
+        for(let $key in msg.data.items){
+            let $value = msg.data.items[$key];
+            m.oriPetChip.push($value.p);
+        }
+        m.oriChip = msg.data.chip;
+        m.oriAdChip = msg.data.adChip;
+        console.log(JSON.stringify(m));
+
+        //oper=5 单抽，每天免费3次，后续花费元宝；
+        //oper=11 11连抽，必须花费元宝，10次的花费、抽11次
+        msg = await remote.fetching({url:"q?act=502001&oper=11"});
+        remote.isSuccess(msg);
+
+        let n = {petChip:[], chip:0, adChip:0};
+        for(let $key in msg.data.items){
+            let $value = msg.data.items[$key];
+            n.petChip.push($value.p);
+        }
+        n.petChip = n.petChip.map((val, idx)=>{
+            return val - m.oriPetChip[idx];
+        });
+        n.chip = msg.data.chip - m.oriChip;
+        n.adChip = msg.data.adChip - m.oriAdChip;
+        console.log(JSON.stringify(n));
+    });
+
+    it.skip('打印模拟战斗到文件', async () => {
         console.time('计算耗时');
         for(let i = 0; i < 1; i++){
             let result = BattleRoom.CreateRoom(...users()).QuickBattle();//计算结果并输出战斗过程
@@ -219,48 +208,42 @@ describe('PVP英雄管理', function() {
         done();
     });
 
-    it('查询卡牌分组', done => {
-        remote.auth({directly:true}, msg=>{
-            remote.isSuccess(msg);
-            remote.fetch({url:"q?act=502001&oper=9"}, function(msg){
-                remote.isSuccess(msg,true);
+    it('查询卡牌分组', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
 
-                console.log("编组列表：");
-                Object.values(msg.data.loc).map(it=>{
-                    console.log(it);
-                })
-                console.log("有效战力：");
-                msg.data.power.map(it=>{
-                    console.log(it);
-                });
-                done();
-            });
+        msg = await remote.fetching({url:"q?act=502001&oper=9"});
+        remote.isSuccess(msg,true);
+
+        console.log("编组列表：");
+        Object.values(msg.data.loc).map(it=>{
+            console.log(it);
+        })
+        console.log("有效战力：");
+        msg.data.power.map(it=>{
+            console.log(it);
         });
     });
 
-    it('加入分组', done => {
-        remote.auth({directly:true}, msg=>{
-            remote.isSuccess(msg);
-            remote.fetch({url:"q?act=502001&oper=7&id=3&gid=1"}, function(msg){
-                remote.isSuccess(msg,true);
-                done();
-            });
-        });
+    it('加入分组', async () => {
+        let msg = await remote.login();
+        remote.isSuccess(msg);
+
+        msg = await remote.fetching({url:"q?act=502001&oper=7&id=3&gid=1"});
+        remote.isSuccess(msg, true);
     });
 
-    it('输出战斗过程到JSON对象', done => {
-        remote.auth({directly:true,openid:"sss1"}, msg=>{
-            remote.isSuccess(msg);
+    it('输出战斗过程到JSON对象', async () => {
+        let msg = await remote.login({openid:"sss1"});
+        remote.isSuccess(msg);
 
-            let func = ()=> {
-                remote.fetch({url:"q?act=502001&oper=6&openid=sss1&gid=1&debug=1"}, function(msg) {
-                    remote.isSuccess(msg);
-                    msg.data.operation.map(it => {
-                        console.log(it);
-                    });
-                });
-            }
-            setInterval(func, 2000);
-        });
+        let func = async () => {
+            msg = await remote.fetching({url:"q?act=502001&oper=6&openid=sss1&gid=1&debug=1"});
+            remote.isSuccess(msg);
+            msg.data.operation.map(it => {
+                console.log(it);
+            });
+        }
+        setInterval(func, 2000);
     });
 })

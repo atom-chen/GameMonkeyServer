@@ -3,8 +3,6 @@
  * Creted by liub 2017.3.24
  */
 
-const facade = require('gamecloud')
-let {ReturnCodeName, CommMode, ReturnCode, NotifyType, UserStatus} = facade.const
 let remote = require('./util')
 
 describe('认证', function() {
@@ -19,23 +17,16 @@ describe('认证', function() {
 
     it('路由基准测试', async () => {
         await remote.login();
-        let msg = await remote.fetching({url: `test/ping.html`});
+        let msg = await remote.fetching({thirdUrl: `test/ping.html`});
         console.log(msg);
     });
 
-    it.skip('登录 - 自动推送好友列表', done =>{
-        let first = true;
-        remote.watch(msg=>{
-            msg.map(item=>{
-                remote.log(item);
-            });
-            if(first){
-                first = false;
-                done();
-            }
-        }, NotifyType.friends).auth({directly:true}, msg => {
-            remote.isSuccess(msg,true);
-        });
+    it('登录 - 自动推送好友列表', async () =>{
+        let msg = await remote.watch(msg => {
+            remote.log(msg);
+        }, remote.NotifyType.friends).login();
+       
+        remote.isSuccess(msg);
     });
 
     /**
@@ -44,7 +35,7 @@ describe('认证', function() {
     it('登录 - 自动推送体力值', async () => {
         let msg = await remote.watch(msg => { //服务端下发当前体力、体力上限、下一点体力恢复时间戳
             remote.log(msg);
-        }, NotifyType.action).login();
+        }, remote.NotifyType.action).login();
 
         if(remote.isSuccess(msg)) {
             console.log(`用户昵称: ${decodeURIComponent(msg.data.info.name)}`); //中文解码

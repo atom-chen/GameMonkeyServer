@@ -1,22 +1,21 @@
 let remote = require('../util')
 
 describe('活动', function() {
-    it('新手引导', done =>{
-        remote.auth({directly:true}).fetch({url:`q?act=103001&oper=0`}, msg=>{
-            console.dir(msg.data);
-            done();
-        });
+    it('新手引导', async () => {
+        let msg = await remote.login();
+        msg = await remote.fetching({url:`q?act=103001&oper=0`});
+        console.dir(msg.data);
     });
-    it('查询周活动信息', done =>{
-        remote.auth({directly:true}).fetch({url:`q?act=103001&oper=1`}, msg=>{
-            console.dir(msg.data);
-            done();
-        });
+
+    it('查询周活动信息', async () => {
+        let msg = await remote.login();
+        msg = await remote.fetching({url:`q?act=103001&oper=1`});
+        console.dir(msg.data);
     });
-    it('查询周活动排行', done =>{
-        remote.auth({directly:true}).fetch({url:`q?act=103001&oper=2`}, msg=>{
-            console.dir(msg.data);
-            done();
-        });
+
+    it('查询周活动排行', async () =>{
+        let msg = await remote.login();
+        msg = await remote.fetching({url:`q?act=103001&oper=2`});
+        console.dir(msg.data);
     });
 });
