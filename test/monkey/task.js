@@ -6,8 +6,6 @@ describe('任务管理', function() {
         remote.isSuccess(msg);
 
         msg = await remote.fetching({url:"q?act=101000&oper=0"});
-        console.log(msg);
-
         for(let val of Object.values(msg.data.items)){
             console.log(JSON.stringify(val));
         }

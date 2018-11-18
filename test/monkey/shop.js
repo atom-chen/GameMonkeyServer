@@ -2,7 +2,7 @@ let remote = require('../util');
 let facade = require('gamecloud')
 let {ResType} = facade.const;
 
-describe('商城', function() {
+describe.only('商城', function() {
     it('作弊指令', async () => {
        //使用作弊指令获取必要的资源
        let msg = await remote.login();

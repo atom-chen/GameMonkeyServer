@@ -95,30 +95,18 @@ class P999003 extends facade.Control
                         let $item = shopInfo.items.get(input.id);
                         if($item != null){
                             //生成订单
-                            var log = LogEntity.onCreate(user.domain,uuid.v4(),input.id,$item['price'],(new Date()).valueOf(),$item['name'],user.id,PurchaseStatus.create);
-                            console.log(user.baseMgr.info.address);
-                            remote.execute('prop.order', [
-                                cid, //游戏编号
-                                facade.util.rand(10000000, 9999999999), //道具原始
-                                50000, //道具含金量
-                                user.baseMgr.info.address //游戏内玩家的有效地址
-                            ]).then(ret => {
-                                // if(!!ret){
-                                //     console.log("成功！");
-                                // }else{
-                                //     throw new Error("没有成功")
-                                // }
-                                console.log(ret)
-                            }).catch(error=>{
-                                console.log(error);
-                            });
-                        
-                            // if(1==1){
-                            //     $code = user.getShopInfo().purchase($item);
-                            //     if($code == ReturnCode.Success){
-                            //         user.getPocket().AddRes(ResType.Diamond, -$item['price']);//扣钱
-                            //     }
-                            // }
+                            LogEntity.onCreate(user.domain,uuid.v4(),input.id,$item['price'],(new Date()).valueOf(),$item['name'],user.id,PurchaseStatus.create);
+                            // remote.execute('prop.order', [
+                            //     cid, //游戏编号
+                            //     facade.util.rand(10000000, 9999999999), //道具原始
+                            //     50000, //道具含金量
+                            //     user.baseMgr.info.address //游戏内玩家的有效地址
+                            // ]).then(ret => {
+                            //     console.log(ret)
+                            // }).catch(error=>{
+                            //     console.log(error);
+                            // });
+
                             if(user.getPocket().ResEnough(ResType.Diamond, $item['price'])) {
                                 //购买商品、做标记
                                 $code = user.getShopInfo().purchase($item);

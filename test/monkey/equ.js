@@ -20,6 +20,7 @@ describe('法宝', function() {
     it('法宝洗点', async () => {
         //使用作弊指令补充一些钻石，避免执行次数不足而导致失败
         let msg = await remote.fetching({url:`q?act=999003&oper=99&bonus=${ResType.Diamond},1000`});
+        remote.isSuccess(msg);
 
         //查询法宝列表
         msg = await remote.fetching({url:"q?act=500001&oper=1"});

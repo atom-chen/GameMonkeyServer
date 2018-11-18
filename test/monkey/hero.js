@@ -30,7 +30,7 @@ function users(){//模拟用户布阵
 // * ..p      | int      | 当前拥有的专属碎片数量 point
 // * ..b      | int      | 当前战力 power
 
-describe.only('PVP英雄管理', function() {
+describe('PVP英雄管理', function() {
     it('查询列表', async () => {
         let msg = await remote.login();
         remote.isSuccess(msg);
